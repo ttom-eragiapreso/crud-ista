@@ -2,6 +2,17 @@
 
 @section('content')
     <h1 class="text-center py-5">AGGIUNGI UN NUOVO GIOCO</h1>
+    <div class="container">
+        @if ($errors->any())
+            <ul class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>
+                        {{ $error }}
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
 
     <form action="{{ route('games.store') }}" method="POST" class="w-50 m-auto">
         @csrf

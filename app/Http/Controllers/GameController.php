@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GameRequest;
 use App\Models\Game;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class GameController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GameRequest $request)
     {
         $form_data = $request->all();
 
@@ -80,13 +81,13 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(GameRequest $request, Game $game)
     {
         $form_data = $request->all();
 
-        if($form_data['name'] != $game->name){
+        if ($form_data['name'] != $game->name) {
             $form_data['slug'] = Game::generateSlug($form_data['name']);
-        }else {
+        } else {
             $form_data['slug'] = $game->slug;
         }
 
