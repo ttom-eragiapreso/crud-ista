@@ -2,6 +2,9 @@
 
 @section('content')
   <div class="container">
+
+    <h1 class="text-center py-5">Edita UN GIOCO</h1>
+
     <form action="{{ route('games.update', $game) }}" method="POST">
       @method('PUT')
       @csrf

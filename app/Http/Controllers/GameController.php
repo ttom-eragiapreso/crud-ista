@@ -14,7 +14,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $all_games = Game::orderBy('id', 'desc')->paginate(20);
+        $all_games = Game::orderBy('id', 'desc')->paginate(10);
         return view('games.index', compact('all_games'));
     }
 
