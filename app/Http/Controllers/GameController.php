@@ -14,8 +14,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $all_games = Game::paginate(20);
-
+        $all_games = Game::orderBy('id', 'desc')->paginate(20);
         return view('games.index', compact('all_games'));
     }
 
@@ -37,7 +36,18 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->all();
+
+        $form_data['slug'] = Game::generateSlug($form_data['name']);
+
+        $new_item = new Game();
+        $new_item->slug = $form_data['slug'];
+
+        $new_item->fill($form_data);
+
+        $new_item->save();
+
+        return redirect(route('games.show', $new_item));
     }
 
     /**
