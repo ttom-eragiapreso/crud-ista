@@ -70,7 +70,7 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('games.edit');
+        return view('games.edit', compact('game'));
     }
 
     /**
@@ -82,7 +82,17 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //
+        $form_data = $request->all();
+
+        if($form_data['name'] != $game->name){
+            $form_data['slug'] = Game::generateSlug($form_data['name']);
+        }else {
+            $form_data['slug'] = $game->slug;
+        }
+
+        $game->update($form_data);
+
+        return redirect()->route('games.index');
     }
 
     /**
